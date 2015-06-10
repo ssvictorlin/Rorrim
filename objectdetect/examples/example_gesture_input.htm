@@ -105,8 +105,8 @@
 	        // Draw video overlay:
 			canvas.width = window.innerWidth;//~~(600 * video.videoWidth / video.videoHeight);
 			canvas.height = window.innerHeight;
-			
-			context.drawImage(video,0,0, canvas.width, canvas.height);
+			context.scale(-1,1);
+			context.drawImage(video,0,0, -canvas.width, canvas.height);
 			
 			if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
 			
@@ -148,7 +148,7 @@
 					context.lineWidth = '2';
 					context.fillStyle = fist_pos_old ? 'rgba(0, 255, 255, 0.5)' : 'rgba(255, 0, 0, 0)';
 					context.fillRect(
-						coord[0] / video.videoWidth * canvas.clientWidth,
+						coord[0] / video.videoWidth * canvas.clientWidth-video.videoWidth*3,
 						coord[1] / video.videoHeight * canvas.clientHeight,
 						coord[2] / video.videoWidth * canvas.clientWidth,
 						coord[3] / video.videoHeight * canvas.clientHeight);
