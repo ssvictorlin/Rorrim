@@ -72,6 +72,11 @@
           display = document.querySelector('#time');
           startTimer(fiveMinutes, display);
         };
+		
+		function displayMode(mode) {
+			display = document.querySelector('#time');
+			display.textContent = mode;
+		}
 
 	window.onload = function() {
 
@@ -105,8 +110,8 @@
 	        // Draw video overlay:
 			canvas.width = window.innerWidth;//~~(600 * video.videoWidth / video.videoHeight);
 			canvas.height = window.innerHeight;
-			
-			context.drawImage(video,0,0, canvas.width, canvas.height);
+			context.scale(-1,1);
+			context.drawImage(video,0,0, -canvas.width, canvas.height);
 			
 			if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
 			
@@ -119,6 +124,7 @@
 	
           		// Perform the actual detection:
 				var coords = detector.detect(video, 1);
+				var timeoutHandle;
 				
 				if (coords[0]) {
 					var coord = coords[0];
@@ -135,9 +141,21 @@
 						var dx = (fist_pos[0] - fist_pos_old[0]) / video.videoWidth,
 							dy = (fist_pos[1] - fist_pos_old[1]) / video.videoHeight;
 						console.log(fist_pos[0] - fist_pos_old[0]);
-						if (Math.abs(fist_pos[0] - fist_pos_old[0]>50)){
-						   countDown();
-						}			           
+						
+						if (fist_pos[0]>video.videoWidth*0.75 &&fist_pos[1]>video.videoHeight*0.75){
+						   //countDown();
+						   timeoutHandle = setTimeout("displayMode(1)",3000);
+						}else if (fist_pos[0]<video.videoWidth*0.25 &&fist_pos[1]>video.videoHeight*0.75){
+						   timeoutHandle = setTimeout("displayMode(2)",3000);
+						}else if (fist_pos[0]>video.videoWidth*0.75 &&fist_pos[1]<video.videoHeight*0.25){
+						   timeoutHandle = setTimeout("displayMode(3)",3000);
+						}else if (fist_pos[0]<video.videoWidth*0.25 &&fist_pos[1]<video.videoHeight*0.25){
+						   timeoutHandle = setTimeout("displayMode(4)",3000);
+						}else {
+						   displayMode(0);
+						   clearTimeout(timeoutHandle);
+						}
+						
 						fist_pos_old = fist_pos;
 					} else if (coord[4] > 2) {
 						fist_pos_old = fist_pos;
@@ -148,7 +166,7 @@
 					context.lineWidth = '2';
 					context.fillStyle = fist_pos_old ? 'rgba(0, 255, 255, 0.5)' : 'rgba(255, 0, 0, 0)';
 					context.fillRect(
-						coord[0] / video.videoWidth * canvas.clientWidth,
+						coord[0] / video.videoWidth * canvas.clientWidth-video.videoWidth*3,
 						coord[1] / video.videoHeight * canvas.clientHeight,
 						coord[2] / video.videoWidth * canvas.clientWidth,
 						coord[3] / video.videoHeight * canvas.clientHeight);
@@ -161,17 +179,13 @@
 </head>
 
 <body>
-	
 
     <canvas id='canvas' style="position:absolute; left:0; top:0; z-index: 1; width:100%; height:100%; opacity: 0.9"></canvas>
     <canvas id='photo'  style="position:absolute; left:0px; top:0px; z-index:2;"></canvas>
     <div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;"><p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p></div>
 	<div class="video-container"> 
-    <!--iframe  frameborder="0" height="360" src="http://www.youtube.com/embed/wrrO7FQtDgM?rel=0&amp;autoplay=1" width="480" style="position:absolute; left:0; top:0; z-index: 100;"></iframe--> 
-	<iframe width="480" height="360" src="https://www.youtube.com/embed/O4vgaXf__k0?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen style="position:absolute; left:0; top:0; z-index: 100;></iframe>
-	<!--iframe src="http://www.youtube.com/embed/x5uYnBgxee8?rel=0&amp;autoplay=1" width="560" height="315" frameborder="0"></iframe>-->
-	
+	<iframe width="480" height="360" src="https://www.youtube.com/embed/O4vgaXf__k0?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen  style="position:absolute; left:0; top:0; z-index: 10;  opacity: 1"></iframe>
 	</div>
-	
+
 </body>
 </html>
