@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Gesture Control Example</title>
+	<link rel="stylesheet" href="css/demo.css">
+	<script src="js/tracking-min.js"></script>
+  <script src="js/compatibility.js"></script>
+  <script src="js/smoother.js"></script>
+
+  <style>
+  video, canvas {
+    margin-left: 0px;
+    margin-top: 0px;
+    position: absolute;
+  }
+  </style>
+  
+</head>
+
+<body>
+	<div class="demo-container">
+	  <video id="myVideo" preload autoplay loop muted controls></video>
+	  <canvas id="canvas" width="1366px" height="643px" ></canvas>
+	</div>
+	
+	<button onclick="clickevent()" id="Draw_button">Big</button>
+	<canvas id="thecanvas"> </canvas>
+	
+	<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;">
+		<p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p>
+	</div>
+	
+	<div class="video-container"> 
+		<iframe width="480" height="360" src="https://www.youtube.com/embed/O4vgaXf__k0?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen  style="position:relative; left:0; top:0; z-index: 10;  opacity: 1"></iframe>
+	</div>
+	
+	
+	
+	<script>
+
+		var Photostate = false;
+		function clickevent() {
+			var video = document.getElementById('myVideo');
+			var thecanvas = document.getElementById('thecanvas');
+			draw( video, thecanvas);
+			Photostate = false;
+		}
+		
+		function draw( video, thecanvas ){
+	 
+			// get the canvas context for drawing
+			var context = thecanvas.getContext('2d');
+			// draw the video contents into the canvas x, y, width, height
+			context.drawImage( video, 0, 0, thecanvas.width, thecanvas.height);
+			// get the image data from the canvas object
+			var dataURL = thecanvas.toDataURL();
+			//dataURL = dataURL.replace("image/png","image/octet-stream");
+			var link = document.createElement('a');
+			link.download = "selfie.png";
+			link.href = dataURL;
+			link.click();
+			
+		}
+		
+
+		function countDown() {
+			if(!Photostate){
+				Photostate = true;
+				setTimeout("clickevent()",4200);
+				countdown();
+			}
+		}
+		
+		function countdown() {
+	  
+			var Duration = 3,
+			display = document.querySelector('#time');
+			//display.textContent = 3;
+			startTimer(Duration, display);
+        };
+		
+		function startTimer(duration, display) {
+			var start = Date.now(), diff, minutes, seconds;
+			
+			function timer() {
+				// get the number of seconds that have elapsed since 
+				diff = duration - (((Date.now() - start) / 1000) | 0);
+
+				// does the same job as parseInt truncates the float
+				minutes = (diff / 60) | 0;
+				seconds = (diff % 60) | 0;
+				
+				//seconds = seconds < 10 ? "0" + seconds : seconds;
+				display.textContent =  seconds; 
+				if (seconds == -1) {clearTimeout(s);display.textContent ="";}
+
+				if (diff <= 0) {
+					// add one second so that the count down starts at the full duration
+					// example 05:00 not 04:59
+					//start = Date.now() + 1000;
+				}
+			};
+			
+			// we don't want to wait a full second before the timer starts
+			timer();
+			s=setInterval(timer, 1000);
+        }
+		
+	</script>
+	
+  <script src="js/my_color_tracking_youtube.js"></script>
+</body>
+</html>
