@@ -8,8 +8,15 @@
   var colors = new tracking.ColorTracker(['yellow']);
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
+  context.translate(canvas.width, 0);
+
+  context.scale(-1,1);
+  console.log("here i scale");
 
   colors.on('track', function(event) {
+
+
+
     context.clearRect(0, 0, canvas.width, canvas.height);
     if (event.data.length === 0) {
       // No colors were detected in this frame.

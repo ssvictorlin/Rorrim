@@ -5,6 +5,7 @@
 		<?php include('css/main.css') ?>
 	</style>
 	<link rel="stylesheet" type="text/css" href="css/weather-icons.css">
+	<link rel="stylesheet" href="css/demo.css">
 	<script type="text/javascript">
 		var gitHash = '<?php echo trim(`git rev-parse HEAD`) ?>';
 	</script>
@@ -13,23 +14,27 @@
 </head>
 <body>
 	<div id="cycler">
-	<img class="active" src="img/tumblr_n22xkk96Gu1qei2wfo1_1280.jpg" />
-  	<img class="img2" src="img/tumblr_nhnsy4KhX11skrctjo1_1280.jpg" />
-  	<img class="img3" src="img/tumblr_n8q3xwbAvn1ri06y7o4_1280.jpg" />
-  	<img class="img4" src="img/tumblr_n8q3xwbAvn1ri06y7o5_1280.jpg" />
-  	  </div>
-  	<div id="container">
-       
-    </div>
+		<img class="active" src="img/tumblr_n22xkk96Gu1qei2wfo1_1280.jpg" />
+	  	<img class="img2" src="img/tumblr_nhnsy4KhX11skrctjo1_1280.jpg" />
+	  	<img class="img3" src="img/tumblr_n8q3xwbAvn1ri06y7o4_1280.jpg" />
+	  	<img class="img4" src="img/tumblr_n8q3xwbAvn1ri06y7o5_1280.jpg" />
+  	</div>
+  	<div id="container"> </div>
+
+  	<div class="demo-container">		
+	  <video id="myVideo" preload autoplay loop muted controls></video> 
+	</div>
+	<canvas id="canvas" width="1920px" height="955px" ></canvas>
 	<div class="top left"><div class="date small dimmed"></div><div class="time"></div><div class="calendar xxsmall"></div></div>
 	<div class="top right"><div class="windsun small dimmed"></div><div class="temp"></div><div class="forecast small dimmed"></div></div>
 	<div class="center-ver center-hor"><!-- <div class="dishwasher light">Vaatwasser is klaar!</div> --></div>
 	<div class="lower-third center-hor"><div class="compliment light"></div></div>
 	<div class="bottom center-hor"><div class="news medium"></div></div>
 	<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;"><p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p></div>
-    <video id="video" style="float: left; margin-right: 1em; display:none;"></video>
+    <video id="video" style="float: left; margin-right: 1em; display:none"></video> 
 
-</div>
+
+<script src="js/tracking-min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="js/changebackground.js"></script>
@@ -43,7 +48,7 @@
 <script src="js/smoother.js"></script>
 	
 <script src="js/objectdetect.js"></script>
-<script src="js/objectdetect.frontalface_alt.js"></script>
+<script src="js/objectdetect.frontalface.js"></script>
 
 <script>
 	    var state = false;
@@ -89,7 +94,7 @@
 
         function countdown() {
           if(!state){
-	    state = true; 
+	    	state = true; 
             var fiveMinutes = 2,
             display = document.querySelector('#time');
             startTimer(fiveMinutes, display);
@@ -130,12 +135,12 @@
 	          	if (!detector) {
 		      		var width = ~~(60 * video.videoWidth / video.videoHeight);
 					var height  =60;
-		      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface_alt);
+		      		detector = new objectdetect.detector(width, height, 1.1, objectdetect.frontalface);
 		      	}
           		
           		// Perform the actual detection:
 				var coords = detector.detect(video, 1);
-				if (coords[0]) {
+				if (coords[0]) { console.log("OMG");
 										$(function(){$("#container").css("display","block");});
                                         clearTimeout(s);
                                         state=false;
@@ -156,7 +161,7 @@
 					glasses.style.opacity = 1;
 					
 				} else {
-                                        countdown();
+                    countdown();
 					var opacity = glasses.style.opacity - 0.2;
 					glasses.style.opacity = opacity > 0 ? opacity : 0;
 				}
@@ -172,10 +177,10 @@
 <!-- <script src="js/socket.io.min.js"></script> -->
 <script>
     $("#up").click(function(){
-     $("#container").css("display","block" );
+     $("#container").css("display","block");
   });
 </script>
-
+<script src="js/my_color_tracking.js"></script>
 <img id="glasses" src="" style="position: absolute; display: none; opacity: 0">
 </body>
 </html>
