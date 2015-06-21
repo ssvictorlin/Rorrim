@@ -22,6 +22,14 @@ body, html {
 
 
 #container {background-color: #000; width:100%; height:100%; z-index:-1;display: block;}
+#camera {position:absolute;float:right;right:0px;}
+#camera img {width:200px;height:200px;}
+#home {position:absolute;float:left;left:0px;}
+#home img {width:200px;height:200px;}
+#phone {position:absolute;float:left;bottom:0px;}
+#phone img {width:200px;height:200px;}
+#youtube {position:absolute;float:right;right:0px;bottom:0px;}
+#youtube img {width:200px;height:200px;}
 /*#cf2 img {
   position:absolute;
   left:0;

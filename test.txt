@@ -1,4 +1,0 @@
-git checkout branch_name
-git add.
-git commit
-git push
