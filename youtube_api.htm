@@ -19,59 +19,55 @@
 </head>
 
 <body>
-	
 	<div class="demo-container">
-	
-	
-	  <video id="myVideo" preload autoplay loop muted controls ></video>
-	  <canvas id="canvas" width="1366px" height="643px"style="z-index:6; background-color:#000;" ></canvas>
+	  <video id="myVideo" preload autoplay loop muted controls></video>
+	  <canvas id="canvas" width="1366px" height="643px" ></canvas>
 	</div>
 	
-	
-	<!--button onclick="clickevent()" id="Draw_button" style="z-index:10" >Big</button-->
-	<canvas id="thecanvas" width="800px" height="600px" style="z-index:50;"> </canvas>
-	<canvas id="thecanvas_download" width="800px" height="600px"> </canvas>
+	<!--button onclick="stopVideo()" id="Draw_button">Big</button-->
+	<canvas id="thecanvas"> </canvas>
 	
 	<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;">
 		<p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p>
 	</div>
 	
+  	<button onclick="pauseVideo()" id="Draw_button">Stop</button>
+	<button onclick="playvideo()" id="Draw_button">Play</button>
+	
+	<div id="player"></div>
+	
+	
 	<script>
 
 		var Photostate = false;
+		
+		function stopVideo() {
+			document.getElementById('player').stopVideo();
+			//player.stopVideo();
+		}
+		
+		
 		function clickevent() {
 			var video = document.getElementById('myVideo');
 			var thecanvas = document.getElementById('thecanvas');
-			var thecanvas_download = document.getElementById('thecanvas_download');
-			thecanvas_download.width = video.videoWidth;
-			thecanvas_download.height = video.videoHeight;
-			console.log(thecanvas_download.width, thecanvas_download.height);
-			draw( video, thecanvas, thecanvas_download );
+			draw( video, thecanvas);
 			Photostate = false;
 		}
 		
-		function draw( video, thecanvas, thecanvas_download ){
+		function draw( video, thecanvas ){
 	 
 			// get the canvas context for drawing
 			var context = thecanvas.getContext('2d');
 			// draw the video contents into the canvas x, y, width, height
-			context.drawImage( video, 0, 0, 300, 225);
-
-			
+			context.drawImage( video, 0, 0, thecanvas.width, thecanvas.height);
 			// get the image data from the canvas object
-			context = thecanvas_download.getContext('2d');
-			console.log(thecanvas_download.width, thecanvas_download.height);
-			context.drawImage( video, 0, 0, thecanvas_download.width, thecanvas_download.height);
-			thecanvas_download.style.display ="none";
-			
-			var dataURL = thecanvas_download.toDataURL();
-			//dataURL = dataURL.replace();//dataURL.replace("image/png","image/octet-stream");
-			//console.log(dataURL);
-			//document.location.href = dataURL;
+			var dataURL = thecanvas.toDataURL();
+			//dataURL = dataURL.replace("image/png","image/octet-stream");
 			var link = document.createElement('a');
 			link.download = "selfie.png";
 			link.href = dataURL;
 			link.click();
+			
 		}
 		
 
@@ -119,7 +115,7 @@
         }
 		
 	</script>
-	
-  <script src="js/my_color_tracking_selfie.js"></script>
+  <script src="js/_youtube.js"></script>
+  <script src="js/my_color_tracking_youtube.js"></script>
 </body>
 </html>

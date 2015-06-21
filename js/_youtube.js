@@ -14,14 +14,14 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'M7lc1UVf-VE',
+          videoId: 'O4vgaXf__k0',
            events: {
              'onReady': onPlayerReady,
             // 'onStateChange': onPlayerStateChange
            }
         });
 		document.getElementById('player').style.position= "absolute";
-		document.getElementById('player').style.left= 100 +"px" ;
+		document.getElementById('player').style.left= 50 +"px" ;
 		document.getElementById('player').style.top= 0 +"px" ;
 		//console.log(x);
       }
@@ -30,18 +30,10 @@
       function onPlayerReady(event) {
         event.target.playVideo();
       }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-	  
+	
+	  function pauseVideo(){
+		player.pauseVideo()
+	  }
 	  function playvideo() {
 		player.playVideo();
 	  }

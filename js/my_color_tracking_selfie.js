@@ -8,7 +8,8 @@
   var colors = new tracking.ColorTracker(['yellow']);
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
-	
+  context.translate(canvas.width,0);
+  context.scale(-1,1);
   var current_area =1;
   var last_area = 1;
   var last_last_area = 1;
@@ -38,7 +39,7 @@ function changelog(){_log = true;};
 	  disappear = true;
     } else {
       event.data.forEach(function(rect) {
-        //console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
+        console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
         //console.log(rect.height*rect.width);
 		disappear = false;
         context.strokeStyle = rect.color;
