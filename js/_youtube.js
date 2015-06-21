@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"  ></div>
-	
-	<button onclick="stopVideo()" id="Draw_button">Big</button>
-    
-	<script>
-      // 2. This code loads the IFrame Player API code asynchronously.
+
+     // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
@@ -23,10 +15,10 @@
           height: '390',
           width: '640',
           videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
+           events: {
+             'onReady': onPlayerReady,
+            // 'onStateChange': onPlayerStateChange
+           }
         });
 		document.getElementById('player').style.position= "absolute";
 		document.getElementById('player').style.left= 100 +"px" ;
@@ -49,9 +41,10 @@
           done = true;
         }
       }
+	  
+	  function playvideo() {
+		player.playVideo();
+	  }
       function stopVideo() {
         player.stopVideo();
       }
-    </script>
-  </body>
-</html>

@@ -24,7 +24,7 @@
 	  <canvas id="canvas" width="1366px" height="643px" ></canvas>
 	</div>
 	
-	<button onclick="clickevent()" id="Draw_button">Big</button>
+	<button onclick="stopVideo()" id="Draw_button">Big</button>
 	<canvas id="thecanvas"> </canvas>
 	
 	<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;">
@@ -32,7 +32,7 @@
 	</div>
 	
 	<div class="video-container"> 
-		<iframe width="480" height="360" src="https://www.youtube.com/embed/O4vgaXf__k0?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen  style="position:relative; left:0; top:0; z-index: 10;  opacity: 1"></iframe>
+		<iframe id="player" width="480" height="360" src="https://www.youtube.com/embed/O4vgaXf__k0?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen  style="position:relative; left:0; top:0; z-index: 10;  opacity: 1"></iframe>
 	</div>
 	
 	
@@ -40,6 +40,13 @@
 	<script>
 
 		var Photostate = false;
+		
+		function stopVideo() {
+			document.getElementById('player').stopVideo();
+			//player.stopVideo();
+		}
+		
+		
 		function clickevent() {
 			var video = document.getElementById('myVideo');
 			var thecanvas = document.getElementById('thecanvas');
