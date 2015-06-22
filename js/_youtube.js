@@ -12,8 +12,8 @@
 	  var x = 1;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-          height: '390',
-          width: '640',
+          height: '360',
+          width: '480',
           videoId: 'O4vgaXf__k0',
            events: {
              'onReady': onPlayerReady,
@@ -21,7 +21,7 @@
            }
         });
 		document.getElementById('player').style.position= "absolute";
-		document.getElementById('player').style.left= 50 +"px" ;
+		document.getElementById('player').style.left= 0 +"px" ;
 		document.getElementById('player').style.top= 0 +"px" ;
 		//console.log(x);
       }
@@ -30,7 +30,19 @@
       function onPlayerReady(event) {
         event.target.playVideo();
       }
-	
+	  
+	  function getPlayState(){
+		console.log(player.getPlayerState());
+		player.getPlayerState();
+		
+	  }
+	  
+	  function play_pauseVideo() {
+		var stateNumber = player.getPlayerState();
+		if(stateNumber == 1) player.pauseVideo();
+		if(stateNumber == 2) player.playVideo();
+	  }
+	  
 	  function pauseVideo(){
 		player.pauseVideo()
 	  }

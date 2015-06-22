@@ -8,7 +8,8 @@
   var colors = new tracking.ColorTracker(['yellow']);
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
-	
+  context.translate(canvas.width,0);
+  context.scale(-1,1);
   var current_area =1;
   var last_area = 1;
   var last_last_area = 1;
@@ -55,19 +56,19 @@ function changelog(){_log = true;};
     }
 	
 	
-	// change_ratio = [ last_area/last_last_area, current_area / last_area] ;
-	// //console.log(change_ratio);
+	change_ratio = [ last_area/last_last_area, current_area / last_area] ;
+	//console.log(change_ratio);
 	
-	// //if(change_ratio < 0.5 ) countDown();
-	// distance[0] = distance[1];
-	// distance[1] =Math.sqrt( (current_position[0]-last_position[0])*(current_position[0]-last_position[0])  
-							// +(current_position[1]-last_position[1])*(current_position[1]-last_position[1]) );
+	//if(change_ratio < 0.5 ) countDown();
+	distance[0] = distance[1];
+	distance[1] =Math.sqrt( (current_position[0]-last_position[0])*(current_position[0]-last_position[0])  
+							+(current_position[1]-last_position[1])*(current_position[1]-last_position[1]) );
 
-	// if(change_ratio[0]>1) change_ratio[0] =1;
-	// if(change_ratio[1]>1) change_ratio[1] =1;
+	if(change_ratio[0]>1) change_ratio[0] =1;
+	if(change_ratio[1]>1) change_ratio[1] =1;
 	
-	// if(_log)console.log(distance[0]+distance[1], change_ratio[0]*change_ratio[1]);
-	// if(change_ratio[0]*change_ratio[1] < 0.7 &&  distance[0]+distance[1] < 20 )  { countDown();  _log = false; }
+	if(_log)console.log(distance[0]+distance[1], change_ratio[0]*change_ratio[1]);
+	if(change_ratio[0]*change_ratio[1] < 0.7 &&  distance[0]+distance[1] < 20 )  { play_pauseVideo();  _log = false; }
 	// else if(distance[0]+distance[1]==0 && disappear==true && change_ratio[0]*change_ratio[1] <0.96) {
 			// countDown(); _log=false;
 		 // }
