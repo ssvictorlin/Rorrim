@@ -13,12 +13,17 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
+	<button>Gooooooo</button>
+	<div class="toggle4" style="display:none;width:100%;height:100%;position:absolute;"></div>
+
 	<div id="cycler">
 		<img class="active" src="img/tumblr_n22xkk96Gu1qei2wfo1_1280.jpg" />
 	  	<img class="img2" src="img/tumblr_nhnsy4KhX11skrctjo1_1280.jpg" />
 	  	<img class="img3" src="img/tumblr_n8q3xwbAvn1ri06y7o4_1280.jpg" />
 	  	<img class="img4" src="img/tumblr_n8q3xwbAvn1ri06y7o5_1280.jpg" />
   	</div>
+
+    
   	<div id="container"> </div>
 
   	<div class="demo-container">		
@@ -30,7 +35,7 @@
 	<div class="center-ver center-hor"><!-- <div class="dishwasher light">Vaatwasser is klaar!</div> --></div>
 	<div class="lower-third center-hor"><div class="compliment light"></div></div>
 	<div class="bottom center-hor"><div class="news medium"></div></div>
-	<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;"><p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p></div>
+	<!--<div style="position:relative;z-index:5; width:100%;margin-right:auto;margin-left:auto;"><p id="time" style="font-size:400px; text-align:center; color:#0099FF;"></p></div>-->
     <video id="video" style="float: left; margin-right: 1em; display:none"></video> 
 
 
@@ -46,58 +51,56 @@
 <script src="js/main.js?nocache=<?php echo md5(microtime()) ?>"></script>
 <script src="js/compatibility.js"></script>
 <script src="js/smoother.js"></script>
-	
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>	
 <script src="js/objectdetect.js"></script>
 <script src="js/objectdetect.frontalface.js"></script>
 
 <script>
 	    var state = false;
         var s;
-        var display;
-	function changeBackGround(){
-        }
-        
-        function startTimer(duration, display) {
-          var start = Date.now(),
-          diff,
-          minutes,
-          seconds;
-        function timer() {
-        // get the number of seconds that have elapsed since 
-        // startTimer() was called
-        diff = duration - (((Date.now() - start) / 1000) | 0);
+        var pageIsOpen = false;
+        function startTimerVic(duration) {
+	          var start = Date.now(),
+	          diff,
+	          minutes,
+	          seconds;
+	        function timer() {
+	        // get the number of seconds that have elapsed since 
+	        // startTimer() was called
+	        diff = duration - (((Date.now() - start) / 1000) | 0);
 
-        // does the same job as parseInt truncates the float
-        minutes = (diff / 60) | 0;
-        seconds = (diff % 60) | 0;
+	        // does the same job as parseInt truncates the float
+	        minutes = (diff / 60) | 0;
+	        seconds = (diff % 60) | 0;
 
-        
-        //seconds = seconds < 10 ? "0" + seconds : seconds;
+	        
+	        //seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        
-        if (seconds == -1) {clearTimeout(s);
-        	$(function(){
-     		$("#container").css("display","none");
-  			});}
+	        
+	        if (seconds == -1) {clearTimeout(s);
+	        	$(function(){
+	        	$( "#container" ).animate({backgroundColor: "transparent"}, 1000 );
+	     		$("#container").css({"display":"none", "backgroundColor":"transparent"});
+	  			});}
 
-        if (diff <= 0) {
-            // add one second so that the count down starts at the full duration
-            // example 05:00 not 04:59
-            //start = Date.now() + 1000;
-        }
-        
-        };
-        // we don't want to wait a full second before the timer starts
-        timer();
-        s=setInterval(timer, 1000);
+	        if (diff <= 0) {
+	            // add one second so that the count down starts at the full duration
+	            // example 05:00 not 04:59
+	            //start = Date.now() + 1000;
+	        }
+	        
+	        };
+	        // we don't want to wait a full second before the timer starts
+	        timer();
+	        s=setInterval(timer, 1000);
         }
 
-        function countdown() {
+        function countDownAndChangeBack() {
           if(!state){
 	    	state = true; 
-            var fiveMinutes = 2,
-            display = document.querySelector('#time');
-            startTimer(fiveMinutes, display);
+            var fiveMinutes = 2;
+            //display = document.querySelector('#time');
+            startTimerVic(fiveMinutes);
           }
         };
 
@@ -141,7 +144,12 @@
           		// Perform the actual detection:
 				var coords = detector.detect(video, 1);
 				if (coords[0]) { console.log("OMG");
-										$(function(){$("#container").css("display","block");});
+										$(function() {
+											if (!pageIsOpen) {
+												$("#container").css("display","block");
+												$( "#container" ).animate({backgroundColor: "#000"}, 1000 );
+											}
+										});
                                         clearTimeout(s);
                                         state=false;
 					var coord = coords[0];
@@ -161,7 +169,7 @@
 					glasses.style.opacity = 1;
 					
 				} else {
-                    countdown();
+                    countDownAndChangeBack();
 					var opacity = glasses.style.opacity - 0.2;
 					glasses.style.opacity = opacity > 0 ? opacity : 0;
 				}
@@ -175,12 +183,8 @@
 
 </script>
 <!-- <script src="js/socket.io.min.js"></script> -->
-<script>
-    $("#up").click(function(){
-     $("#container").css("display","block");
-  });
-</script>
 <script src="js/my_color_tracking.js"></script>
+<script src="js/pageslide.js"></script>
 <img id="glasses" src="" style="position: absolute; display: none; opacity: 0">
 </body>
 </html>

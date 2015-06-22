@@ -21,7 +21,15 @@ body, html {
 #cycler img.active{z-index:3}
 
 
-#container {background-color: #000; width:100%; height:100%; z-index:-1;display: block;}
+
+#container 
+{
+	/*background-color: #000;*/
+	width:100%; 
+	height:100%; 
+	z-index:-1;
+	display: block;
+}
 /*#cf2 img {
   position:absolute;
   left:0;
@@ -33,6 +41,12 @@ body, html {
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
 }*/
+
+#toggle4 {
+	font-size: 35px;
+	letter-spacing: -1px;
+	font-family: "HelveticaNeue-Light";
+}
 
 .wi {
 	line-height: 75px;
