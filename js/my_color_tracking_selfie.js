@@ -11,7 +11,7 @@
         //dx * dx + dy * dy + dz * dz < 3500;
   });
 
-  var colors = new tracking.ColorTracker(['cyan']);
+  var colors = new tracking.ColorTracker(['yellow']);
  // colors.setMinDimension(20);
   //colors.setMinGroupSize(30);
   /*tracking.ColorTracker.registerColor('green', function(r, g, b) {
@@ -56,7 +56,8 @@ function changelog(){_log = true;};
 	  disappear = true;
     } else {
       event.data.forEach(function(rect) {
-        console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
+        console.log("selfie");
+        //console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
         //console.log(rect.height*rect.width);
 		disappear = false;
         context.strokeStyle = rect.color;

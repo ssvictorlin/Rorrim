@@ -11,7 +11,7 @@
         //dx * dx + dy * dy + dz * dz < 3500;
   });
 
-  var colors = new tracking.ColorTracker(['cyan']);
+  var colors = new tracking.ColorTracker(['yellow']);
  // colors.setMinDimension(20);
   //colors.setMinGroupSize(30);
   var current_area =1;
@@ -43,11 +43,12 @@ function changelog(){_log = true;};
 	  disappear = true;
     } else {
       event.data.forEach(function(rect) {
-        //console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
-        //console.log(rect.height*rect.width);
+        console.log(rect.x, rect.y, rect.height, rect.width, rect.color);
+        console.log(rect.height*rect.width);
 		disappear = false;
         context.strokeStyle = rect.color;
-        context.drawImage(circle,rect.x, rect.y);
+        context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+        //context.drawImage(circle,rect.x, rect.y);
         //context.font = '11px Helvetica';
         //context.fillStyle = "#fff";
         //context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);

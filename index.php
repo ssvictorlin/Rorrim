@@ -64,6 +64,8 @@
         var s;
         var selfiePage = false;
         var youtubePage = false;
+        var selfiepageLoaded = false;
+        var youtubepageLoaded = false;
         function startTimerVic(duration) {
 	          var start = Date.now(),
 	          diff,

@@ -42,6 +42,12 @@
 		if(stateNumber == 1) player.pauseVideo();
 		if(stateNumber == 2) player.playVideo();
 	  }
+
+    function page_pause(){
+      var _stateNumber = player.getPlayerState();
+      if(_stateNumber==1) player.pauseVideo();
+
+    }
 	  
 	  function pauseVideo(){
 		player.pauseVideo()
